@@ -53,7 +53,7 @@ public class Dron {
 	}
 	
 	//Calculates XY Coordinates for every lunch and print them on a file
-	public void deliverLunchs() {
+	public void deliverLunchs(String homeServiceId) {
 		
 		StringBuilder stringBuilder = new StringBuilder(Constants.REPORT_TITLE);
 		stringBuilder.append(System.lineSeparator());
@@ -64,9 +64,8 @@ public class Dron {
 			stringBuilder.append(System.lineSeparator());
 		}
 		
-		printFile(stringBuilder.toString());
+		printFile(stringBuilder.toString(), homeServiceId);
 	}
-	
 	
 	private void calculateAddress(String route) {
 		
@@ -179,10 +178,10 @@ public class Dron {
 		return cardinal;
 	}
 	
-	private void printFile(String content) {
+	private void printFile(String content, String homeServiceId) {
 				
 		try (BufferedWriter bufferedWriter = new BufferedWriter(
-				new FileWriter(Constants.OUTPUT_FILE_PATH+Constants.FILE_OUTPUT_NAME+Constants.FILE_EXTENSION))){
+				new FileWriter(Constants.OUTPUT_FILE_PATH+Constants.FILE_OUTPUT_NAME+homeServiceId+Constants.FILE_EXTENSION))){
 			
 			bufferedWriter.write(content);
 			
@@ -190,5 +189,6 @@ public class Dron {
 		} catch (IOException e) {
 			System.out.println(Constants.ERROR_WRITING_FILE + e.getMessage());
 		}
+		
 	}
 }
